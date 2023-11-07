@@ -4,48 +4,47 @@
             <li class="relative flex gap-x-4">
                 @if ($loop->last)
                     <div class="absolute left-0 top-0 flex w-6 justify-center h-6">
-                        <div class="w-px bg-gray-200"></div>
+                        <div class="w-px bg-gray-200 dark:bg-gray-500"></div>
                     </div>
                 @else
                     <div class="absolute left-0 top-0 flex w-6 justify-center -bottom-6">
-                        <div class="w-px bg-gray-200"></div>
+                        <div class="w-px bg-gray-200 dark:bg-gray-500"></div>
                     </div>
                 @endif
-                <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-black">
+                <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-gray-50 dark:bg-gray-950">
                     @switch($activity->event)
                         @case('created')
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-400">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             @break
                         @default
                             <div class="relative flex h-6 w-6 flex-none items-center justify-center ">
-                                <div class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300"></div>
+                                <div class="h-1.5 w-1.5 rounded-full bg-gray-100 dark:bg-gray-400 ring-1 ring-gray-300 dark:ring-gray-500"></div>
                             </div>
                             @break
                     @endswitch
                 </div>
                 <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
                     <span class="font-medium dark:text-gray-100 text-gray-900">{{$getCauser($activity)}}</span> {{$activity->description}} {{$getSubject($activity)}}.
-                    <p>
-                        @if($activity->event === 'updated')
-                            @foreach($getDiff($activity) as $key => $diff)
-                                @if($diff->to === null)
-                                    <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/20">
+                    @if($activity->event === 'updated')
+                        br
+                        @foreach($getDiff($activity) as $key => $diff)
+                            @if($diff->to === null)
+                                <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/20">
                                         {{$key}}: {{$diff->from}}
                                     </span>
-                                @elseif($diff->from === null)
-                                    <span class="inline-flex items-center rounded-md bg-green-500/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-500/20">
+                            @elseif($diff->from === null)
+                                <span class="inline-flex items-center rounded-md bg-green-500/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-500/20">
                                         {{$key}}: {{$diff->to}}
                                     </span>
-                                @else
-                                    <span class="inline-flex items-center rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/30">
+                            @else
+                                <span class="inline-flex items-center rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/30">
                                         {{$key}}: {{$diff->from}} -> {{$diff->to}}
                                     </span>
-                                @endif
-                            @endforeach
-                        @endif
-                    </p>
+                            @endif
+                        @endforeach
+                    @endif
                 </p>
                 <time datetime="{{$activity->created_at}}" class="flex-none py-0.5 text-xs leading-5 text-gray-500">{{$activity->created_at?->diffForHumans()}}</time>
             </li>

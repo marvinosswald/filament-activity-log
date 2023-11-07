@@ -28,7 +28,7 @@
                 <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
                     <span class="font-medium dark:text-gray-100 text-gray-900">{{$getCauser($activity)}}</span> {{$activity->description}} {{$getSubject($activity)}}.
                     @if($activity->event === 'updated')
-                        br
+                        <br>
                         @foreach($getDiff($activity) as $key => $diff)
                             @if($diff->to === null)
                                 <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/20">

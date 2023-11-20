@@ -100,9 +100,10 @@ class ActivityLogEntry extends Entry
 
     private function convertToString(mixed $value)
     {
-        if (is_array($value)){
-            return collect($value)->map(fn($value, $key) => "{$key}: " . $this->convertToString($value))->join("\n");
+        if (is_array($value)) {
+            return collect($value)->map(fn ($value, $key) => "{$key}: " . $this->convertToString($value))->join("\n");
         }
+
         return $value;
     }
 }

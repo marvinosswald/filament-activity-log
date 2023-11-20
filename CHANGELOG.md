@@ -2,6 +2,13 @@
 
 All notable changes to `filament-activity-log` will be documented in this file.
 
+## 0.2 - 2023-11-20
+
+- new: display descriptions
+- fix: sorting if multiple subject_types get shown in one feed
+
+**Full Changelog**: https://github.com/marvinosswald/filament-activity-log/compare/0.1.1...0.2
+
 ## 0.1.1 - 2023-11-07
 
 fix: typo

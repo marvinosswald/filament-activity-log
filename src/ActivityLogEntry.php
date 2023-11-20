@@ -90,10 +90,19 @@ class ActivityLogEntry extends Entry
     public function getDiff($activity)
     {
         return collect(ArrayDiffMultidimensional::looseComparison($activity->properties['attributes'], $activity->properties['old']))
-            ->map(fn ($value, $key) => (object) [
-                'from' => $activity->properties['old'][$key],
-                'to' => $value,
-            ]);
+            ->map(function ($value, $key) use ($activity) {
+                return (object) [
+                    'from' => $activity->properties['old'][$key],
+                    'to' => $this->convertToString($value),
+                ];
+            });
+    }
 
+    private function convertToString(mixed $value)
+    {
+        if (is_array($value)){
+            return collect($value)->map(fn($value, $key) => "{$key}: " . $this->convertToString($value))->join("\n");
+        }
+        return $value;
     }
 }

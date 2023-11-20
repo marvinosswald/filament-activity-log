@@ -1,6 +1,6 @@
 <x-dynamic-component :component="$getEntryWrapperView()" :entry="$entry">
     <ul role="list" class="space-y-6"     x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-activity-log', package: 'marvinosswald/filament-activity-log'))]">
-        @foreach($getState()->sortByDesc('created_at') as $activity)
+        @foreach($getState()->sortBy([['id', 'desc'], ['created_at', 'desc']]) as $activity)
             <li class="relative flex gap-x-4">
                 @if ($loop->last)
                     <div class="absolute left-0 top-0 flex w-6 justify-center h-6">
@@ -25,10 +25,11 @@
                             @break
                     @endswitch
                 </div>
-                <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                    <span class="font-medium dark:text-gray-100 text-gray-900">{{$getCauser($activity)}}</span> {{$activity->description}} {{$getSubject($activity)}}.
+                <div class="flex flex-col">
+                    <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
+                        <span class="font-medium dark:text-gray-100 text-gray-900">{{$getCauser($activity)}}</span> {{$activity->event}} {{$getSubject($activity)}}.
+                    </p>
                     @if($activity->event === 'updated')
-                        <br>
                         @foreach($getDiff($activity) as $key => $diff)
                             @if($diff->to === null)
                                 <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/20">
@@ -45,7 +46,14 @@
                             @endif
                         @endforeach
                     @endif
-                </p>
+                    @if($activity->description != $activity->event)
+                        <div class="border-l-2 border-gray-500 mt-2">
+                            <blockquote class="pl-2 text-xs font-semibold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
+                                <p>“{{$activity->description}}”</p>
+                            </blockquote>
+                        </div>
+                    @endif
+                </div>
                 <time datetime="{{$activity->created_at}}" class="flex-none py-0.5 text-xs leading-5 text-gray-500">{{$activity->created_at?->diffForHumans()}}</time>
             </li>
         @endforeach

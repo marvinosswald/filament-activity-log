@@ -28,6 +28,7 @@ php artisan vendor:publish --tag="filament-activity-log-views"
 ```php
 ActivityLogEntry::make()
 ->with('shippingAddress.activities')
+->formatDescriptionUsing(fn(Activity $activity) => $activity->description)
 ->formatSubjectUsing(function (Activity $activity) {
     if ($activity->subject_type == OrderAddress::class) {
         return __("models.{$activity->subject_type}", ['type' => $activity->subject->type]);

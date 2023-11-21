@@ -15,6 +15,8 @@ class ActivityLogEntry extends Entry
 
     protected ?\Closure $formatCauserUsing = null;
 
+    protected ?\Closure $formatDescriptionUsing = null;
+
     public static function make(string $name = 'activities'): static
     {
         $static = app(static::class, ['name' => $name]);
@@ -65,6 +67,13 @@ class ActivityLogEntry extends Entry
         return $this;
     }
 
+    public function formatDescriptionUsing(\Closure $closure): static
+    {
+        $this->formatDescriptionUsing = $closure;
+
+        return $this;
+    }
+
     public function getSubject($activity)
     {
         if ($this->formatSubjectUsing !== null) {
@@ -85,6 +94,21 @@ class ActivityLogEntry extends Entry
         }
 
         return $activity->causer?->getFullname() ?? 'System';
+    }
+
+    public function getDescription($activity): ?string
+    {
+        if ($this->formatDescriptionUsing !== null) {
+            return $this->evaluate($this->formatDescriptionUsing, [
+                'activity' => $activity,
+            ]);
+        }
+
+        if ($activity->description === $activity->event) {
+            return null;
+        }
+
+        return $activity->description ?? null;
     }
 
     public function getDiff($activity)

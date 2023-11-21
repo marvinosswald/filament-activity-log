@@ -2,6 +2,10 @@
 
 All notable changes to `filament-activity-log` will be documented in this file.
 
+## 0.2.1 - 2023-11-21
+
+new: formatDescriptionUsing allows custom descriptions
+
 ## 0.2 - 2023-11-20
 
 - new: display descriptions

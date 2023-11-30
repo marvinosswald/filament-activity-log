@@ -2,6 +2,10 @@
 
 All notable changes to `filament-activity-log` will be documented in this file.
 
+## 0.3.1 - 2023-11-30
+
+show multi level array attributes, even if displayed incorrectly
+
 ## 0.3.0 - 2023-11-30
 
 Remove bundled css styles, use recommended custom theme options instead.

@@ -116,7 +116,7 @@ class ActivityLogEntry extends Entry
         return collect(ArrayDiffMultidimensional::looseComparison($activity->properties['attributes'], $activity->properties['old']))
             ->map(function ($value, $key) use ($activity) {
                 return (object) [
-                    'from' => $activity->properties['old'][$key],
+                    'from' => $this->convertToString($activity->properties['old'][$key]),
                     'to' => $this->convertToString($value),
                 ];
             });

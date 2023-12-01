@@ -2,6 +2,10 @@
 
 All notable changes to `filament-activity-log` will be documented in this file.
 
+## 0.3.3 - 2023-12-01
+
+more cleanup
+
 ## 0.3.2 - 2023-12-01
 
 fix: removed css asset registration

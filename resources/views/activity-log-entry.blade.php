@@ -1,6 +1,5 @@
 <x-dynamic-component :component="$getEntryWrapperView()" :entry="$entry">
-    <ul role="list" class="space-y-6"
-        x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-activity-log', package: 'marvinosswald/filament-activity-log'))]">
+    <ul role="list" class="space-y-6">
         @foreach($getState()?->sortBy([['id', 'desc'], ['created_at', 'desc']]) ?? [] as $activity)
             <li class="relative flex gap-x-4">
                 @if ($loop->last)

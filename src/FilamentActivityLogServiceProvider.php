@@ -18,11 +18,4 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
         $package->name(static::$name)
             ->hasViews();
     }
-
-    public function packageBooted(): void
-    {
-        FilamentAsset::register([
-            Css::make('filament-activity-log', __DIR__ . '/../resources/dist/filament-activity-log.css')->loadedOnRequest(),
-        ], 'marvinosswald/filament-activity-log');
-    }
 }
